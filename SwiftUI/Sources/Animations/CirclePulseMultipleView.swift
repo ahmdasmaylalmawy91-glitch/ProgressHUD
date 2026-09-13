@@ -15,7 +15,7 @@ import SwiftUI
 struct CirclePulseMultipleView: View {
 
 	// MARK: - Properties
-	@State private var hud = ProgressHUD.shared
+	let color: Color
 
 	private let pulseCount = 3
 	private let duration: Double = 1.0
@@ -30,7 +30,7 @@ struct CirclePulseMultipleView: View {
 					PulseCircle(
 						index: i,
 						duration: duration,
-						color: hud.colorAnimation
+						color: color
 					)
 					.frame(width: size.width, height: size.height)
 				}
@@ -91,6 +91,6 @@ private struct PulseCircle: View {
 }
 
 #Preview {
-	CirclePulseMultipleView()
+	CirclePulseMultipleView(color: .gray)
 		.frame(width: 70, height: 70)
 }

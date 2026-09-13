@@ -43,6 +43,7 @@ public class ProgressHUD {
 	var bannerTitle: String?
 	var bannerMessage: String?
 	var bannerTask: Task<Void, Never>?
+	var bannerCleanupTask: Task<Void, Never>?
 
 	var liveIconID = UUID()
 
@@ -209,47 +210,47 @@ public struct ProgressHUDView: View {
 		case .none:
 			EmptyView()
 		case .activityIndicator:
-			ActivityIndicatorView()
+			ActivityIndicatorView(color: hud.colorAnimation)
 		case .ballVerticalBounce:
-			BallVerticalBounceView()
+			BallVerticalBounceView(color: hud.colorAnimation)
 		case .barSweepToggle:
-			BarSweepToggleView()
+			BarSweepToggleView(color: hud.colorAnimation)
 		case .circleArcDotSpin:
-			CircleArcDotSpinView()
+			CircleArcDotSpinView(color: hud.colorAnimation)
 		case .circleBarSpinFade:
-			CircleBarSpinFadeView()
+			CircleBarSpinFadeView(color: hud.colorAnimation)
 		case .circleDotSpinFade:
-			CircleDotSpinFadeView()
+			CircleDotSpinFadeView(color: hud.colorAnimation)
 		case .circlePulseMultiple:
-			CirclePulseMultipleView()
+			CirclePulseMultipleView(color: hud.colorAnimation)
 		case .circlePulseSingle:
-			CirclePulseSingleView()
+			CirclePulseSingleView(color: hud.colorAnimation)
 		case .circleRippleMultiple:
-			CircleRippleMultipleView()
+			CircleRippleMultipleView(color: hud.colorAnimation)
 		case .circleRippleSingle:
-			CircleRippleSingleView()
+			CircleRippleSingleView(color: hud.colorAnimation)
 		case .circleRotateChase:
-			CircleRotateChaseView()
+			CircleRotateChaseView(color: hud.colorAnimation)
 		case .circleStrokeSpin:
-			CircleStrokeSpinView()
+			CircleStrokeSpinView(color: hud.colorAnimation)
 		case .dualDotSidestep:
-			DualDotSidestepView()
+			DualDotSidestepView(color: hud.colorAnimation)
 		case .horizontalBarScaling:
-			HorizontalBarScalingView()
+			HorizontalBarScalingView(color: hud.colorAnimation)
 		case .horizontalDotScaling:
-			HorizontalDotScalingView()
+			HorizontalDotScalingView(color: hud.colorAnimation)
 		case .pacmanProgress:
-			PacmanProgressView()
+			PacmanProgressView(color: hud.colorAnimation)
 		case .quintupleDotDance:
-			QuintupleDotDanceView()
+			QuintupleDotDanceView(color: hud.colorAnimation)
 		case .semiRingRotation:
-			SemiRingRotationView()
+			SemiRingRotationView(color: hud.colorAnimation)
 		case .sfSymbolBounce:
-			SFSymbolBounceView()
+			SFSymbolBounceView(symbol: hud.animationSymbol, color: hud.colorAnimation)
 		case .squareCircuitSnake:
-			SquareCircuitSnakeView()
+			SquareCircuitSnakeView(color: hud.colorAnimation)
 		case .triangleDotShift:
-			TriangleDotShiftView()
+			TriangleDotShiftView(color: hud.colorAnimation)
 		}
 	}
 }

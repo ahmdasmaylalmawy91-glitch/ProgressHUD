@@ -15,7 +15,7 @@ import SwiftUI
 struct CirclePulseSingleView: View {
 
 	// MARK: - Properties
-	@State private var hud = ProgressHUD.shared
+	let color: Color
 	@State private var scale: CGFloat = 0
 	@State private var opacity: Double = 1
 
@@ -24,7 +24,7 @@ struct CirclePulseSingleView: View {
 	// MARK: - Body
 	var body: some View {
 		Circle()
-			.fill(hud.colorAnimation)
+			.fill(color)
 			.scaleEffect(scale)
 			.opacity(opacity)
 			.onAppear {
@@ -45,6 +45,6 @@ struct CirclePulseSingleView: View {
 }
 
 #Preview {
-	CirclePulseSingleView()
+	CirclePulseSingleView(color: .gray)
 		.frame(width: 70, height: 70)
 }

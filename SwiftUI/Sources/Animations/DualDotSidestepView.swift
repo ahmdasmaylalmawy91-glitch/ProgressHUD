@@ -15,7 +15,7 @@ import SwiftUI
 struct DualDotSidestepView: View {
 
 	// MARK: - Properties
-	@State private var hud = ProgressHUD.shared
+	let color: Color
 	@State private var hollowOffset: CGFloat = 0
 	@State private var filledOffset: CGFloat = 0
 	@State private var hollowOnTop = false
@@ -33,13 +33,13 @@ struct DualDotSidestepView: View {
 
 			ZStack {
 				Circle()
-					.stroke(hud.colorAnimation, lineWidth: lineWidth)
+					.stroke(color, lineWidth: lineWidth)
 					.frame(width: radius * 2 - lineWidth, height: radius * 2 - lineWidth)
 					.offset(x: -moveDistance / 2 + hollowOffset)
 					.zIndex(hollowOnTop ? 1 : 0)
 
 				Circle()
-					.fill(hud.colorAnimation)
+					.fill(color)
 					.frame(width: radius * 2, height: radius * 2)
 					.offset(x: moveDistance / 2 + filledOffset)
 					.zIndex(hollowOnTop ? 0 : 1)
@@ -72,6 +72,6 @@ struct DualDotSidestepView: View {
 }
 
 #Preview {
-	DualDotSidestepView()
+	DualDotSidestepView(color: .gray)
 		.frame(width: 70, height: 70)
 }

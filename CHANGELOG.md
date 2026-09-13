@@ -1,5 +1,19 @@
 # Change Log
 
+## [15.0.3](https://github.com/relatedcode/ProgressHUD/releases/tag/15.0.3)
+
+Released on 2026-09-13.
+
+#### Fixed
+
+- Prevented an old banner cleanup task from clearing a newer banner.
+- Prevented success and error colors from carrying over to regular images.
+
+#### Changed
+
+- Centralized the repeated SwiftUI HUD presentation logic.
+- Passed animation colors and symbols directly to animation views.
+
 ## [15.0.2](https://github.com/relatedcode/ProgressHUD/releases/tag/15.0.2)
 
 Released on 2026-08-02.

@@ -15,7 +15,7 @@ import SwiftUI
 struct BallVerticalBounceView: View {
 
 	// MARK: - Properties
-	@State private var hud = ProgressHUD.shared
+	let color: Color
 
 	// MARK: - Body
 	var body: some View {
@@ -42,12 +42,12 @@ struct BallVerticalBounceView: View {
 
 				ZStack {
 					RubberBand(bend: bend)
-						.stroke(hud.colorAnimation, style: StrokeStyle(lineWidth: width * 0.08, lineCap: .round))
+						.stroke(color, style: StrokeStyle(lineWidth: width * 0.08, lineCap: .round))
 						.frame(width: lineWidth, height: rubberHeight)
 						.position(x: width / 2, y: lineY + (rubberHeight / 2))
 
 					Circle()
-						.fill(hud.colorAnimation)
+						.fill(color)
 						.frame(width: ballRadius * 2, height: ballRadius * 2)
 						.position(
 							x: width / 2,
@@ -125,6 +125,6 @@ private struct RubberBand: Shape {
 }
 
 #Preview {
-	BallVerticalBounceView()
+	BallVerticalBounceView(color: .gray)
 		.frame(width: 70, height: 70)
 }

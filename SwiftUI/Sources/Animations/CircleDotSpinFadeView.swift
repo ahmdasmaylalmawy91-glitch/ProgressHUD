@@ -15,7 +15,7 @@ import SwiftUI
 struct CircleDotSpinFadeView: View {
 
 	// MARK: - Properties
-	@State private var hud = ProgressHUD.shared
+	let color: Color
 
 	private let dotCount = 8
 	private let duration: Double = 1.0
@@ -34,7 +34,7 @@ struct CircleDotSpinFadeView: View {
 						index: i,
 						dotCount: dotCount,
 						duration: duration,
-						color: hud.colorAnimation
+						color: color
 					)
 					.frame(width: dotRadius, height: dotRadius)
 					.offset(y: -circleRadius)
@@ -77,6 +77,6 @@ private struct SpinningDot: View {
 }
 
 #Preview {
-	CircleDotSpinFadeView()
+	CircleDotSpinFadeView(color: .gray)
 		.frame(width: 70, height: 70)
 }

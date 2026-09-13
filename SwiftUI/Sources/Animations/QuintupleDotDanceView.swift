@@ -15,7 +15,7 @@ import SwiftUI
 struct QuintupleDotDanceView: View {
 
 	// MARK: - Properties
-	@State private var hud = ProgressHUD.shared
+	let color: Color
 	@State private var startDate = Date()
 
 	private let dotCount = 5
@@ -43,7 +43,7 @@ struct QuintupleDotDanceView: View {
 				HStack(spacing: spacing + stroke) {
 					ForEach(0..<dotCount, id: \.self) { i in
 						Circle()
-							.stroke(hud.colorAnimation, lineWidth: stroke)
+							.stroke(color, lineWidth: stroke)
 							.frame(width: radius * 2, height: radius * 2)
 							.offset(
 								x: i == 0 ? horizontalOffset : 0,
@@ -61,6 +61,6 @@ struct QuintupleDotDanceView: View {
 }
 
 #Preview {
-	QuintupleDotDanceView()
+	QuintupleDotDanceView(color: .gray)
 		.frame(width: 70, height: 70)
 }

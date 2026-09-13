@@ -145,40 +145,31 @@ public extension ProgressHUD {
 
 	@MainActor
 	static func animate(_ text: String? = nil, interaction: Bool = true) {
-		shared.dismissTask?.cancel()
-		shared.dismissAnimTask?.cancel()
-		shared.displayMode = .animation
-		shared.text = text
-		shared.interaction = interaction
-		withAnimation(.easeOut(duration: 0.15)) {
-			shared.isVisible = true
+		present {
+			shared.displayMode = .animation
+			shared.text = text
+			shared.interaction = interaction
 		}
 	}
 
 	@MainActor
 	static func animate(_ text: String? = nil, _ type: AnimationType, interaction: Bool = true) {
-		shared.dismissTask?.cancel()
-		shared.dismissAnimTask?.cancel()
-		shared.animationType = type
-		shared.displayMode = .animation
-		shared.text = text
-		shared.interaction = interaction
-		withAnimation(.easeOut(duration: 0.15)) {
-			shared.isVisible = true
+		present {
+			shared.animationType = type
+			shared.displayMode = .animation
+			shared.text = text
+			shared.interaction = interaction
 		}
 	}
 
 	@MainActor
 	static func animate(_ text: String? = nil, symbol: String, interaction: Bool = true) {
-		shared.dismissTask?.cancel()
-		shared.dismissAnimTask?.cancel()
-		shared.animationType = .sfSymbolBounce
-		shared.animationSymbol = symbol
-		shared.displayMode = .animation
-		shared.text = text
-		shared.interaction = interaction
-		withAnimation(.easeOut(duration: 0.15)) {
-			shared.isVisible = true
+		present {
+			shared.animationType = .sfSymbolBounce
+			shared.animationSymbol = symbol
+			shared.displayMode = .animation
+			shared.text = text
+			shared.interaction = interaction
 		}
 	}
 }
@@ -188,27 +179,21 @@ public extension ProgressHUD {
 
 	@MainActor
 	static func progress(_ value: CGFloat, interaction: Bool = false) {
-		shared.dismissTask?.cancel()
-		shared.dismissAnimTask?.cancel()
-		shared.displayMode = .progress
-		shared.progressValue = max(0, min(1, value))
-		shared.text = nil
-		shared.interaction = interaction
-		withAnimation(.easeOut(duration: 0.15)) {
-			shared.isVisible = true
+		present {
+			shared.displayMode = .progress
+			shared.progressValue = max(0, min(1, value))
+			shared.text = nil
+			shared.interaction = interaction
 		}
 	}
 
 	@MainActor
 	static func progress(_ text: String?, _ value: CGFloat, interaction: Bool = false) {
-		shared.dismissTask?.cancel()
-		shared.dismissAnimTask?.cancel()
-		shared.displayMode = .progress
-		shared.progressValue = max(0, min(1, value))
-		shared.text = text
-		shared.interaction = interaction
-		withAnimation(.easeOut(duration: 0.15)) {
-			shared.isVisible = true
+		present {
+			shared.displayMode = .progress
+			shared.progressValue = max(0, min(1, value))
+			shared.text = text
+			shared.interaction = interaction
 		}
 	}
 }
@@ -218,15 +203,11 @@ public extension ProgressHUD {
 
 	@MainActor
 	static func liveIcon(_ text: String? = nil, icon: LiveIcon, interaction: Bool = true, delay: TimeInterval? = nil) {
-		shared.dismissTask?.cancel()
-		shared.dismissAnimTask?.cancel()
-		let newID = UUID()
-		shared.liveIconID = newID
-		shared.displayMode = .liveIcon(icon)
-		shared.text = text
-		shared.interaction = interaction
-		withAnimation(.easeOut(duration: 0.15)) {
-			shared.isVisible = true
+		present {
+			shared.liveIconID = UUID()
+			shared.displayMode = .liveIcon(icon)
+			shared.text = text
+			shared.interaction = interaction
 		}
 		scheduleAutoDismiss(text: text, delay: delay)
 	}
@@ -257,41 +238,28 @@ public extension ProgressHUD {
 
 	@MainActor
 	static func image(_ text: String? = nil, image: Image?, interaction: Bool = true, delay: TimeInterval? = nil) {
-		shared.dismissTask?.cancel()
-		shared.dismissAnimTask?.cancel()
-		shared.displayMode = .staticImage
-		shared.staticImage = image
-		shared.text = text
-		shared.interaction = interaction
-		withAnimation(.easeOut(duration: 0.15)) {
-			shared.isVisible = true
-		}
-		scheduleAutoDismiss(text: text, delay: delay)
+		presentImage(text, image: image, color: nil, interaction: interaction, delay: delay)
 	}
 
 	@MainActor
 	static func symbol(_ text: String? = nil, name: String, interaction: Bool = true, delay: TimeInterval? = nil) {
-		shared.staticImageColor = nil
 		let image = Image(systemName: name)
-		self.image(text, image: image, interaction: interaction, delay: delay)
+		presentImage(text, image: image, color: nil, interaction: interaction, delay: delay)
 	}
 
 	@MainActor
 	static func success(_ text: String? = nil, image: Image? = nil, interaction: Bool = true, delay: TimeInterval? = nil) {
-		shared.staticImageColor = shared.colorSuccess
-		self.image(text, image: image ?? shared.imageSuccess, interaction: interaction, delay: delay)
+		presentImage(text, image: image ?? shared.imageSuccess, color: shared.colorSuccess, interaction: interaction, delay: delay)
 	}
 
 	@MainActor
 	static func error(_ text: String? = nil, image: Image? = nil, interaction: Bool = true, delay: TimeInterval? = nil) {
-		shared.staticImageColor = shared.colorError
-		self.image(text, image: image ?? shared.imageError, interaction: interaction, delay: delay)
+		presentImage(text, image: image ?? shared.imageError, color: shared.colorError, interaction: interaction, delay: delay)
 	}
 
 	@MainActor
 	static func error(_ error: Error?, image: Image? = nil, interaction: Bool = true, delay: TimeInterval? = nil) {
-		shared.staticImageColor = shared.colorError
-		self.image(error?.localizedDescription, image: image ?? shared.imageError, interaction: interaction, delay: delay)
+		presentImage(error?.localizedDescription, image: image ?? shared.imageError, color: shared.colorError, interaction: interaction, delay: delay)
 	}
 }
 
@@ -301,6 +269,7 @@ public extension ProgressHUD {
 	@MainActor
 	static func banner(_ title: String?, _ message: String?, delay: TimeInterval = 3.0) {
 		shared.bannerTask?.cancel()
+		shared.bannerCleanupTask?.cancel()
 		shared.bannerTitle = title
 		shared.bannerMessage = message
 		withAnimation(.easeOut(duration: 0.25)) {
@@ -317,19 +286,44 @@ public extension ProgressHUD {
 	@MainActor
 	static func bannerHide() {
 		shared.bannerTask?.cancel()
+		shared.bannerCleanupTask?.cancel()
 		withAnimation(.easeIn(duration: 0.25)) {
 			shared.bannerVisible = false
 		}
-		Task {
+		shared.bannerCleanupTask = Task {
 			try? await Task.sleep(for: .milliseconds(250))
-			shared.bannerTitle = nil
-			shared.bannerMessage = nil
+			if !Task.isCancelled {
+				shared.bannerTitle = nil
+				shared.bannerMessage = nil
+			}
 		}
 	}
 }
 
 // MARK: - Private Methods
 private extension ProgressHUD {
+
+	@MainActor
+	static func present(_ configure: () -> Void) {
+		shared.dismissTask?.cancel()
+		shared.dismissAnimTask?.cancel()
+		configure()
+		withAnimation(.easeOut(duration: 0.15)) {
+			shared.isVisible = true
+		}
+	}
+
+	@MainActor
+	static func presentImage(_ text: String?, image: Image?, color: Color?, interaction: Bool, delay: TimeInterval?) {
+		present {
+			shared.displayMode = .staticImage
+			shared.staticImage = image
+			shared.staticImageColor = color
+			shared.text = text
+			shared.interaction = interaction
+		}
+		scheduleAutoDismiss(text: text, delay: delay)
+	}
 
 	static func scheduleAutoDismiss(text: String?, delay: TimeInterval?) {
 		let count = text?.count ?? 0

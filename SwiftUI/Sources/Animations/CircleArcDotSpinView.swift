@@ -15,7 +15,7 @@ import SwiftUI
 struct CircleArcDotSpinView: View {
 
 	// MARK: - Properties
-	@State private var hud = ProgressHUD.shared
+	let color: Color
 	@State private var dotRotation: Double = 0
 
 	private struct AnimationValues {
@@ -40,7 +40,7 @@ struct CircleArcDotSpinView: View {
 					let angle = (Double(i) / Double(dotCount)) * 360
 
 					Circle()
-						.fill(hud.colorAnimation)
+						.fill(color)
 						.frame(width: dotSize, height: dotSize)
 						.offset(x: radius)
 						.rotationEffect(.degrees(angle))
@@ -50,7 +50,7 @@ struct CircleArcDotSpinView: View {
 				KeyframeAnimator(initialValue: AnimationValues(), repeating: true) { values in
 					Circle()
 						.trim(from: 0, to: values.trimEnd)
-						.stroke(hud.colorAnimation, style: StrokeStyle(lineWidth: innerSize / 6, lineCap: .round))
+						.stroke(color, style: StrokeStyle(lineWidth: innerSize / 6, lineCap: .round))
 						.frame(width: innerSize, height: innerSize)
 						.rotationEffect(.degrees(-90 + values.rotation))
 				} keyframes: { _ in
@@ -74,6 +74,6 @@ struct CircleArcDotSpinView: View {
 }
 
 #Preview {
-	CircleArcDotSpinView()
+	CircleArcDotSpinView(color: .gray)
 		.frame(width: 70, height: 70)
 }

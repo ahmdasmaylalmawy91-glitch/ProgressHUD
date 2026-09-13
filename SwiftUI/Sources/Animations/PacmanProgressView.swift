@@ -15,7 +15,7 @@ import SwiftUI
 struct PacmanProgressView: View {
 
 	// MARK: - Properties
-	@State private var hud = ProgressHUD.shared
+	let color: Color
 	@State private var mouthOpen: CGFloat = 0
 	@State private var dotOffset: CGFloat = 0
 
@@ -32,13 +32,13 @@ struct PacmanProgressView: View {
 
 			ZStack {
 				PacmanShape(mouthOpen: mouthOpen)
-					.stroke(hud.colorAnimation, lineWidth: pacmanSize / 2)
+					.stroke(color, lineWidth: pacmanSize / 2)
 					.frame(width: pacmanSize, height: pacmanSize)
 					.offset(x: -pacmanSize / 4)
 					.animation(.easeInOut(duration: duration / 2).repeatForever(autoreverses: true), value: mouthOpen)
 
 				Circle()
-					.stroke(hud.colorAnimation, lineWidth: dotSize / 2)
+					.stroke(color, lineWidth: dotSize / 2)
 					.frame(width: dotSize / 2, height: dotSize / 2)
 					.offset(x: initialDotOffset + dotOffset)
 					.animation(.easeIn(duration: duration).repeatForever(autoreverses: false), value: dotOffset)
@@ -82,6 +82,6 @@ private struct PacmanShape: Shape {
 }
 
 #Preview {
-	PacmanProgressView()
+	PacmanProgressView(color: .gray)
 		.frame(width: 70, height: 70)
 }

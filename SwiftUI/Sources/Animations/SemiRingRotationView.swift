@@ -15,7 +15,7 @@ import SwiftUI
 struct SemiRingRotationView: View {
 
 	// MARK: - Properties
-	@State private var hud = ProgressHUD.shared
+	let color: Color
 	@State private var rotation: Double = 0
 	@State private var scale: CGFloat = 1.0
 	@State private var animationTask: Task<Void, Never>?
@@ -30,13 +30,13 @@ struct SemiRingRotationView: View {
 
 			ZStack {
 				SemiRingHorizontal()
-					.stroke(hud.colorAnimation, style: StrokeStyle(lineWidth: lineWidth, lineCap: .round))
+					.stroke(color, style: StrokeStyle(lineWidth: lineWidth, lineCap: .round))
 					.frame(width: size.width, height: size.height)
 					.scaleEffect(scale)
 					.rotationEffect(.degrees(rotation))
 
 				SemiRingVertical()
-					.stroke(hud.colorAnimation, style: StrokeStyle(lineWidth: lineWidth, lineCap: .round))
+					.stroke(color, style: StrokeStyle(lineWidth: lineWidth, lineCap: .round))
 					.frame(width: size.width / 2, height: size.height / 2)
 					.scaleEffect(scale)
 					.rotationEffect(.degrees(-rotation))
@@ -116,6 +116,6 @@ private struct SemiRingVertical: Shape {
 }
 
 #Preview {
-	SemiRingRotationView()
+	SemiRingRotationView(color: .gray)
 		.frame(width: 70, height: 70)
 }

@@ -15,7 +15,7 @@ import SwiftUI
 struct BarSweepToggleView: View {
 
 	// MARK: - Properties
-	@State private var hud = ProgressHUD.shared
+	let color: Color
 
 	struct AnimationValues {
 		var trimStart: CGFloat = 0.0
@@ -37,7 +37,7 @@ struct BarSweepToggleView: View {
 
 			ZStack {
 				RoundedRectangle(cornerRadius: height)
-					.stroke(hud.colorAnimation, lineWidth: border)
+					.stroke(color, lineWidth: border)
 					.frame(width: width + border, height: heightBar + 2 * border)
 
 				KeyframeAnimator(
@@ -51,7 +51,7 @@ struct BarSweepToggleView: View {
 						heightBar: heightBar,
 						widthBar: widthBar
 					)
-					.stroke(hud.colorAnimation, style: StrokeStyle(lineWidth: heightBar, lineCap: .round))
+					.stroke(color, style: StrokeStyle(lineWidth: heightBar, lineCap: .round))
 					.frame(width: width, height: height)
 				} keyframes: { _ in
 					let duration = 0.9
@@ -122,6 +122,6 @@ private struct SweepBarShape: Shape {
 }
 
 #Preview {
-	BarSweepToggleView()
+	BarSweepToggleView(color: .gray)
 		.frame(width: 70, height: 70)
 }

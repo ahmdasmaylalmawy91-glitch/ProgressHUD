@@ -15,7 +15,7 @@ import SwiftUI
 struct TriangleDotShiftView: View {
 
 	// MARK: - Properties
-	@State private var hud = ProgressHUD.shared
+	let color: Color
 	@State private var offset0: CGSize = .zero
 	@State private var offset1: CGSize = .zero
 	@State private var offset2: CGSize = .zero
@@ -31,19 +31,19 @@ struct TriangleDotShiftView: View {
 
 			ZStack {
 				Circle()
-					.fill(hud.colorAnimation)
+					.fill(color)
 					.frame(width: radius * 2, height: radius * 2)
 					.offset(offset0)
 					.position(x: radius, y: radius)
 
 				Circle()
-					.fill(hud.colorAnimation)
+					.fill(color)
 					.frame(width: radius * 2, height: radius * 2)
 					.offset(offset1)
 					.position(x: size.width - radius, y: radius)
 
 				Circle()
-					.fill(hud.colorAnimation)
+					.fill(color)
 					.frame(width: radius * 2, height: radius * 2)
 					.offset(offset2)
 					.position(x: size.width / 2, y: size.height - radius)
@@ -72,6 +72,6 @@ struct TriangleDotShiftView: View {
 }
 
 #Preview {
-	TriangleDotShiftView()
+	TriangleDotShiftView(color: .gray)
 		.frame(width: 70, height: 70)
 }

@@ -15,6 +15,7 @@ import SwiftUI
 struct CircleRotateChaseView: View {
 
 	// MARK: - Properties
+	let color: Color
 	@State private var isAnimating = false
 
 	// MARK: - Body
@@ -38,7 +39,7 @@ struct CircleRotateChaseView: View {
 						.frame(width: size.width, height: size.height)
 						.overlay(
 							Circle()
-								.fill(ProgressHUD.shared.colorAnimation)
+								.fill(color)
 								.frame(width: dotSize, height: dotSize)
 								.scaleEffect(isAnimating ? toScale : fromScale)
 								.offset(y: -pathRadius)
@@ -57,6 +58,6 @@ struct CircleRotateChaseView: View {
 }
 
 #Preview {
-	CircleRotateChaseView()
+	CircleRotateChaseView(color: .gray)
 		.frame(width: 100, height: 100)
 }

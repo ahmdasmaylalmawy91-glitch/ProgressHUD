@@ -15,17 +15,17 @@ import SwiftUI
 struct ActivityIndicatorView: View {
 
 	// MARK: - Properties
-	@State private var hud = ProgressHUD.shared
+	let color: Color
 
 	// MARK: - Body
 	var body: some View {
 		ProgressView()
 			.controlSize(.large)
 			.scaleEffect(1.35)
-			.tint(hud.colorAnimation)
+			.tint(color)
 	}
 }
 
 #Preview {
-	ActivityIndicatorView()
+	ActivityIndicatorView(color: .gray)
 }

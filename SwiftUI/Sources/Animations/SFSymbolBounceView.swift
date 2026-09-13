@@ -15,26 +15,27 @@ import SwiftUI
 struct SFSymbolBounceView: View {
 
 	// MARK: - Properties
-	@State private var hud = ProgressHUD.shared
+	let symbol: String
+	let color: Color
 
 	// MARK: - Body
 	@ViewBuilder
 	var body: some View {
 		if #available(iOS 18.0, *) {
-			Image(systemName: hud.animationSymbol)
+			Image(systemName: symbol)
 				.font(.system(size: 40, weight: .bold))
-				.foregroundStyle(hud.colorAnimation)
+				.foregroundStyle(color)
 				.symbolEffect(.bounce, options: .repeating)
 		} else {
-			Image(systemName: hud.animationSymbol)
+			Image(systemName: symbol)
 				.font(.system(size: 40, weight: .bold))
-				.foregroundStyle(hud.colorAnimation)
+				.foregroundStyle(color)
 				.symbolEffect(.pulse, options: .repeating)
 		}
 	}
 }
 
 #Preview {
-	SFSymbolBounceView()
+	SFSymbolBounceView(symbol: "sun.max", color: .gray)
 		.frame(width: 70, height: 70)
 }

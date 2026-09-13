@@ -15,7 +15,7 @@ import SwiftUI
 struct SquareCircuitSnakeView: View {
 
 	// MARK: - Properties
-	@State private var hud = ProgressHUD.shared
+	let color: Color
 	@State private var animationTask: Task<Void, Never>?
 	@State private var head: CGFloat = 0.87
 	@State private var tail: CGFloat = 0.75
@@ -34,11 +34,11 @@ struct SquareCircuitSnakeView: View {
 
 			ZStack {
 				RoundedRectangle(cornerRadius: 3)
-					.stroke(hud.colorAnimation.opacity(0.3), style: StrokeStyle(lineWidth: lineWidth, lineCap: .round))
+					.stroke(color.opacity(0.3), style: StrokeStyle(lineWidth: lineWidth, lineCap: .round))
 					.frame(width: innerSize, height: innerSize)
 
 				SquareCircuitSnakeShape(head: head, tail: tail)
-					.stroke(hud.colorAnimation, style: StrokeStyle(lineWidth: lineWidth, lineCap: .round))
+					.stroke(color, style: StrokeStyle(lineWidth: lineWidth, lineCap: .round))
 					.frame(width: innerSize, height: innerSize)
 			}
 			.frame(width: size.width, height: size.height)
@@ -107,6 +107,6 @@ private struct SquareCircuitSnakeShape: Shape {
 }
 
 #Preview {
-	SquareCircuitSnakeView()
+	SquareCircuitSnakeView(color: .gray)
 		.frame(width: 70, height: 70)
 }

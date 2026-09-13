@@ -15,7 +15,7 @@ import SwiftUI
 struct HorizontalBarScalingView: View {
 
 	// MARK: - Properties
-	@State private var hud = ProgressHUD.shared
+	let color: Color
 
 	private let barCount = 5
 	private let duration: Double = 1.0
@@ -31,7 +31,7 @@ struct HorizontalBarScalingView: View {
 					ScalingBar(
 						index: i,
 						duration: duration,
-						color: hud.colorAnimation
+						color: color
 					)
 					.frame(width: barWidth, height: size.height)
 				}
@@ -68,6 +68,6 @@ private struct ScalingBar: View {
 }
 
 #Preview {
-	HorizontalBarScalingView()
+	HorizontalBarScalingView(color: .gray)
 		.frame(width: 70, height: 70)
 }

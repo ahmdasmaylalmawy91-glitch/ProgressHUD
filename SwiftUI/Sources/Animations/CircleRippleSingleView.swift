@@ -15,7 +15,7 @@ import SwiftUI
 struct CircleRippleSingleView: View {
 
 	// MARK: - Properties
-	@State private var hud = ProgressHUD.shared
+	let color: Color
 	@State private var scale: CGFloat = 0.1
 	@State private var opacity: Double = 1
 
@@ -24,7 +24,7 @@ struct CircleRippleSingleView: View {
 	// MARK: - Body
 	var body: some View {
 		Circle()
-			.stroke(hud.colorAnimation, lineWidth: 5)
+			.stroke(color, lineWidth: 5)
 			.scaleEffect(scale)
 			.opacity(opacity)
 			.onAppear {
@@ -45,6 +45,6 @@ struct CircleRippleSingleView: View {
 }
 
 #Preview {
-	CircleRippleSingleView()
+	CircleRippleSingleView(color: .gray)
 		.frame(width: 70, height: 70)
 }

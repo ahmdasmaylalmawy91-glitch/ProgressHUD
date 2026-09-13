@@ -15,7 +15,7 @@ import SwiftUI
 struct CircleRippleMultipleView: View {
 
 	// MARK: - Properties
-	@State private var hud = ProgressHUD.shared
+	let color: Color
 
 	private let rippleCount = 3
 	private let duration: Double = 1.25
@@ -27,7 +27,7 @@ struct CircleRippleMultipleView: View {
 				RippleCircle(
 					index: i,
 					duration: duration,
-					color: hud.colorAnimation
+					color: color
 				)
 			}
 		}
@@ -78,6 +78,6 @@ private struct RippleCircle: View {
 }
 
 #Preview {
-	CircleRippleMultipleView()
+	CircleRippleMultipleView(color: .gray)
 		.frame(width: 70, height: 70)
 }

@@ -15,7 +15,7 @@ import SwiftUI
 struct CircleStrokeSpinView: View {
 
 	// MARK: - Properties
-	@State private var hud = ProgressHUD.shared
+	let color: Color
 	@State private var trimEnd: CGFloat = 0
 	@State private var trimStart: CGFloat = 0
 	@State private var rotation: Double = 0
@@ -27,7 +27,7 @@ struct CircleStrokeSpinView: View {
 	var body: some View {
 		Circle()
 			.trim(from: trimStart, to: trimEnd)
-			.stroke(hud.colorAnimation, style: StrokeStyle(lineWidth: 3, lineCap: .round))
+			.stroke(color, style: StrokeStyle(lineWidth: 3, lineCap: .round))
 			.rotationEffect(.degrees(rotation - 90))
 			.onAppear {
 				startAnimation()
@@ -66,6 +66,6 @@ struct CircleStrokeSpinView: View {
 }
 
 #Preview {
-	CircleStrokeSpinView()
+	CircleStrokeSpinView(color: .gray)
 		.frame(width: 70, height: 70)
 }
